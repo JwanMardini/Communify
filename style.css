@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -66,6 +67,7 @@ nav ul li a:hover::after{
     flex-direction: column;
     justify-content: space-between  ;
     align-items: center;
+    padding-top: 80px;
 }
 
 /* Home */
@@ -119,7 +121,7 @@ nav ul li a:hover::after{
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 300px;
     align-items: center;
     margin-bottom: 40px;
     background-color: #191717;
@@ -165,7 +167,7 @@ footer {
 
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media (max-width: 600px){
 
     nav ul li{
         margin: 10px 10px;
@@ -182,7 +184,8 @@ footer {
 
     .landingPageText{
         order: 2;
-        margin-left: 30px;
+        margin-left: 10%;
+        margin-top: 20px;   
     }
 
 
@@ -191,21 +194,23 @@ footer {
     }
 
     .landingPageText h1{
-        font-size: 70px;
+        font-size: 60px;
         margin-top: 0px;    
     }
 
     .landingPageUnderText{
         font-size: 20px;
+        margin-top: 20px;
     }
 
     .landingPageText p{
-        margin-top: 0px;
+        margin-top: 40px;
+        margin-bottom: 40px;
 
     }
     .landingPageImage img{
-        max-height: 500px;
-        max-width: 500px;
+        max-height: 400px;
+        max-width: 400px;
     }
 
     .about-section{
@@ -215,7 +220,7 @@ footer {
 
     .about-section-textBox{
         order: 2;
-        margin-left: 30px;
+        margin-left: 40px;
     }
 
     .about-section-imageBox{
@@ -223,7 +228,7 @@ footer {
     }
 
     .about-section-textBox h2{
-        font-size: 60px;
+        font-size: 50px;
     }
 
     .about-section-textBox p{
@@ -231,8 +236,8 @@ footer {
     }
 
     .about-section-imageBox img{
-        max-height: 400px;
-        max-width: 400px;
+        max-height: 300px;
+        max-width: 300px;
     }
 
     footer {
@@ -240,6 +245,56 @@ footer {
     }
 
 }
+
+/* Posts */
+.post {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: autoo;
+    width: 500px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #191717;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    margin-top: 7px;
+    color: #CCC8AA;
+}
+
+.post-body {
+    margin-bottom: 10px;
+}
+
+.post-username {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.comments {
+    border: 1px solid #191717;
+}
+
+
+
 
 
 
