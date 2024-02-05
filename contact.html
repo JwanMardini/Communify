@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Communify is a social media platform that connects people in their community.">
+    <meta name="keywords" content="Communify, social media, community, connect, share, engage">
+    <script src="https://kit.fontawesome.com/8e9f869de6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/img/logo.png">
+    <title>Communify</title>
+</head>
+<body>
+    <nav>
+        <img class="navbar-logo" src="assets/img/small-icon2.svg" alt="logo">
+        <ul>
+            <li><a  href="./index.html">Home</a></li>
+            <li><a href="./posts.html">Posts</a></li>
+            <li><a class="active-page" href="#">Contact</a></li>
+            <!-- <i class="fa-regular fa-rectangle-xmark"></i> -->
+        </ul>
+        <!-- <i class="fas fa-bars"></i> -->
+    </nav>
+    <div class="container">
+        <h2>Conatct Communify</h2>
+        <form action="contact.php" method="post">
+            <div>
+                
+            </div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+
+    
+</body>
+</html>
