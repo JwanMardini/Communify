@@ -23,8 +23,8 @@ nav{
 }
 
 .navbar-logo{
-    width: 120px;
-    height: 80px;
+    width: 100px;
+    height: 60px;
     margin-left: 30px;
 }
 
@@ -38,7 +38,7 @@ nav ul li a{
     text-decoration: none;
     color:  #CCC8AA;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 16px;
     transition: .4s;
     position: relative;
 }
@@ -73,9 +73,10 @@ nav ul li a:hover::after{
 /* Home */
 .main-home{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-top: 80px;
     align-items: center;
+    width: 100%;
 
 }
 
@@ -87,33 +88,35 @@ nav ul li a:hover::after{
 .landingPageText h1 {
     text-align: left;
     color: #191717;
-    font-size: 100px;
+    font-size: 60px;
     font-weight: bold;
 }
 
 .landingPageUnderText{
     color: #191717;
-    font-size: 35px;
+    font-size: 15px;
     font-style: italic;
 }
 
 
 .main-home p {
     color: #191717;
-    font-size: 20px;
+    font-size: 10px;
     text-align: left;
-    margin-top: 200px;
+    margin-top: 130px;
     font-weight: bold;
 }
 
 .landingPageImage{
     height: auto;
-    margin-top: 80px;
+    margin-top: 70px;
 }
 
 .landingPageImage img{
     object-fit: contain;
-    max-height: 750px;
+    max-height: 450px;
+    max-width: 450px;
+    margin-left: 50px;
 }
 
 /* About */
@@ -121,135 +124,53 @@ nav ul li a:hover::after{
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    margin-top: 300px;
+    margin-top: 250px;
     align-items: center;
     margin-bottom: 40px;
     background-color: #191717;
     border-radius: 10px;
+    max-height: 400px;
 }
 
 .about-section-textBox{
     text-align: left;
+    margin-left: 70px;
 }
 
 .about-section-textBox h2{
     text-align: left;
     color: #CCC8AA;
-    font-size: 80px;
+    font-size: 40px;
     font-weight: bold;
 }
 
 .about-section-textBox p {
     color: #CCC8AA;
-    font-size: 20px;
+    font-size: 10px;
     text-align: left;
     font-weight: bold;
-    max-width: 500px;
+    max-width: 400px;
 }
 
 .about-section-imageBox{
     height: auto;
-    margin-top: 80px;
+    margin-top: 25px;
 }
 
 .about-section-imageBox img{
     object-fit: contain;
-    max-height: 550px;
+    max-height: 350px;
 }
 
-footer {
-    color: #191717;
-    text-align: right;
-    padding: 20px;
-    width: auto;
-}
-
-
-
-/* Media Queries */
-@media (max-width: 600px){
-
-    nav ul li{
-        margin: 10px 10px;
-    }
-
-    nav ul li a{
-        font-size: 18px;
-    }
-
-    .main-home{
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .landingPageText{
-        order: 2;
-        margin-left: 10%;
-        margin-top: 20px;   
-    }
-
-
-    .landingPageImage{
-        order: 1;
-    }
-
-    .landingPageText h1{
-        font-size: 60px;
-        margin-top: 0px;    
-    }
-
-    .landingPageUnderText{
-        font-size: 20px;
-        margin-top: 20px;
-    }
-
-    .landingPageText p{
-        margin-top: 40px;
-        margin-bottom: 40px;
-
-    }
-    .landingPageImage img{
-        max-height: 400px;
-        max-width: 400px;
-    }
-
-    .about-section{
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .about-section-textBox{
-        order: 2;
-        margin-left: 40px;
-    }
-
-    .about-section-imageBox{
-        order: 1;
-    }
-
-    .about-section-textBox h2{
-        font-size: 50px;
-    }
-
-    .about-section-textBox p{
-        max-width: 300px;
-    }
-
-    .about-section-imageBox img{
-        max-height: 300px;
-        max-width: 300px;
-    }
-
-    footer {
-        text-align: center;
-    }
-
-}
 
 /* Posts */
+.posts-header{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 .post {
     background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 20px;
     height: autoo;
@@ -282,21 +203,144 @@ footer {
 
 .post-body {
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 .post-username {
     font-style: italic;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 .comments {
     border: 1px solid #191717;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #191717;
+    color: #CCC8AA;
+}
+
+footer {
+    color: #191717;
+    text-align: right;
+    padding: 20px;
+    width: auto;
+    font-size: small;
 }
 
 
+/* Media Queries*/
+@media (max-width: 600px){
+
+    nav ul li{
+        margin: 10px 10px;
+    }
+
+    nav ul li a{
+        font-size: 12px;
+    }
+
+    .main-home{
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .landingPageText{
+        order: 2;
+        margin-left: 10%;
+    }
 
 
+    .landingPageImage{
+        order: 1;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
 
+    .landingPageText h1{
+        font-size: 50px;
+        margin-top: 0px;    
+    }
 
-    
+    .landingPageUnderText{
+        font-size: 20px;
+        margin-top: 20px;
+    }
 
+    .landingPageText p{
+        margin-top: 40px;
+        margin-bottom: 40px;
+
+    }
+    .landingPageImage img{
+        max-height: 300px;
+        max-width: 300px;
+        margin-left: 10px;
+        margin-bottom: 30px;
+    }
+
+    .about-section{
+        flex-direction: column;
+        align-items: center;
+        margin-top: 100px;
+    }
+
+    .about-section-textBox{
+        order: 2;
+        margin-left: 40px;
+    }
+
+    .about-section-imageBox{
+        order: 1;
+        margin-top: 10px;
+    }
+
+    .about-section-textBox h2{
+        font-size: 30px;
+    }
+
+    .about-section-textBox p{
+        max-width: 200px;
+    }
+
+    .about-section-imageBox img{
+        max-height: 200px;
+        max-width: 200px;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    /* Posts */
+    .main-posts{
+        align-items: center;
+    }
+    .post{
+        width: 300px;
+        margin-left: 30px;
+    }
+
+    .post-header {
+        padding: 5px;
+    }
+
+    .post-header img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .post-title {
+        font-size: 20px;
+    }
+
+    .post-body {
+        font-size: 16px;
+    }
+
+    .post-username {
+        font-size: 14px;
+    }
+}
