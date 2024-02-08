@@ -1,196 +1,236 @@
-async function fetchUsers(){
-    let fetchedUsers = await fetch("https://dummyjson.com/users?limit=100")
-    let users = await fetchedUsers.json()
-    return users
-  }
+let users = [];
+let posts = [];
+let comments = [];
 
-async function fetchPosts(){
-    let fetchedPosts = await fetch("https://dummyjson.com/posts?limit=150")
-    let posts = await fetchedPosts.json()
-    return posts
+async function fetchUsers() {
+    try {
+        let fetchedUsers = await fetch("https://dummyjson.com/users?limit=100");
+        if (!fetchedUsers.ok) {
+            throw new Error('Failed to fetch users');
+        }
+        let userData = await fetchedUsers.json();
+        users = userData.users; // Update the outer variable
+    } catch (error) {
+        console.error('Error fetching users:', error.message);
+    }
 }
 
-async function fetchComments(){
-    let fetchedComments = await fetch("https://dummyjson.com/comments?limit=340")
-    let comments = await fetchedComments.json()
-    return comments
+async function fetchPosts() {
+    try {
+        let fetchedPosts = await fetch("https://dummyjson.com/posts?limit=150");
+        if (!fetchedPosts.ok) {
+            throw new Error('Failed to fetch posts');
+        }
+        let postData = await fetchedPosts.json();
+        posts = postData.posts; // Update the outer variable
+    } catch (error) {
+        console.error('Error fetching posts:', error.message);
+    }
 }
 
-async function Posts(){
-    let fetchedPosts = await fetchPosts()
-    return fetchedPosts.posts;
+async function fetchComments() {
+    try {
+        let fetchedComments = await fetch("https://dummyjson.com/comments?limit=340");
+        if (!fetchedComments.ok) {
+            throw new Error('Failed to fetch comments');
+        }
+        let commentData = await fetchedComments.json();
+        comments = commentData.comments; // Update the outer variable
+    } catch (error) {
+        console.error('Error fetching comments:', error.message);
+    }
 }
 
-async function Users(){
-    let fetchedUsers = await fetchUsers()
-    return fetchedUsers.users;
+async function fetchAllData() {
+    try {
+        await fetchUsers();
+        await fetchPosts();
+        await fetchComments();
+    } catch (error) {
+        console.error('Error fetching all data:', error.message);
+    }
 }
 
-async function Comments(){
-    let fetchedComments = await fetchComments()
-    return fetchedComments.comments;
-}
 
-async function fetchCommentsForPost(postId){
-    let comments = await Comments()
+// async function displayData() {
+//     await fetchAllData();
+//     console.log(users);
+//     console.log(posts);
+//     console.log(comments);
+// }
+
+
+function fetchCommentsForPost(postId){
     let commentsForPost = comments.filter(comment => comment.postId === postId)
     return commentsForPost
 }
 
-async function fetchUserById(userId){
-    let users = await Users()
+function fetchUserById(userId){
     let user = users.find(user => user.id === userId)
     return user
 }
 
-{/* <div class="post">
-<header class="post-header">
-    <h2 class="post-author">username</h2>
-    <img src="https://placehold.co/30x30" alt="post3">
-</header>
-<h3 class="post-title">post title</h3>
-<p class="post-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem dolor incidunt reprehenderit repellendus ipsa dolores? Magni ullam dolorum animi nulla voluptas, doloremque voluptatibus ratione temporibus odio sint unde placeat eligendi.</p>
-<p class="post-userId">User ID: <span class="userId"></span></p>
-<p class="post-tags">Tags: <span class="tags"></span></p>
-<p class="post-reactionCount">Reaction Count: <span class="reactionCount"></span></p>
-<div class="comments">
-    <!-- Comments will be appended here dynamically -->
+function fetchImgById(userId){
+    let user = users.find(user => user.id === userId)
+    return user.image
+}
+
+// how post should look like
+{/*
+<div class="post">
+    <header class="post-header">
+        <a href="#" id="userId" class="post-author">username</a>
+        <img src="img" alt="post title">
+    </header>
+    <h3 class="post-title">post title</h3>
+    <p class="post-body">post body</p>
+    <p class="post-userId">User ID: <span class="userId">userId</span></p>
+    <p class="post-tags">Tags: <span class="tags">tags</span></p>
+    <p class="post-reactionCount">Reaction Count: <span class="reactionCount">reactionCount</span></p>
+    <p class="post-postId">Post ID: <span class="postId">postId</span></p>
+    <div class="comments">
+        <!-- Comments will be appended here dynamically -->
+        <div class="comment">
+            <header class="comment-header">
+                <img src="https://placehold.co/30x30" alt="">
+                <h4 class="comment-username">username</h4>
+            </header>
+            <p class="comment-body">This is some awesome thinking!</p>
+        </div>
+    </div>
 </div>
-</div> */}
 
-async function createPostElement(username, img, title, body, userId, tags, reactionCount, postId){
-    const container = document.querySelector(".main-posts")
+*/}
 
-    let post = document.createElement("div")
-    post.classList.add("post")
+const container = document.querySelector(".main-posts")
 
-    let header = document.createElement("header")
-    header.classList.add("post-header")
+// Function to create a comment element
+function createCommentElement(comment) {
+    let commentDiv = document.createElement("div");
+    commentDiv.classList.add("comment");
 
-    let author = document.createElement("h2")
-    author.classList.add("post-author")
+    let commentHeader = document.createElement("header");
+    commentHeader.classList.add("comment-header");
 
-    let imgElement = document.createElement("img")
-    imgElement.src = img
-    imgElement.alt = title
+    let commentImg = document.createElement("img");
+    commentImg.src = fetchImgById(comment.user.id);
+    commentImg.alt = "User Image";
 
-    let postTitle = document.createElement("h3")
-    postTitle.classList.add("post-title")
+    let commentUsername = document.createElement("h4");
+    commentUsername.classList.add("comment-username");
+    commentUsername.innerText = comment.user.username;
 
-    let postBody = document.createElement("p")
-    postBody.classList.add("post-body")
+    let commentBody = document.createElement("p");
+    commentBody.classList.add("comment-body");
+    commentBody.innerText = comment.body;
 
-    let postUserId = document.createElement("p")
-    postUserId.classList.add("post-userId")
+    commentHeader.appendChild(commentImg);
+    commentHeader.appendChild(commentUsername);
+    commentDiv.appendChild(commentHeader);
+    commentDiv.appendChild(commentBody);
 
-    postUserId.innerText = "User ID: "
+    return commentDiv;
+}
 
-    let userIdSpan = document.createElement("span")
-    userIdSpan.classList.add("userId")
+// Function to create a post element
+function createPostElement(post) {
+    let postDiv = document.createElement("div");
+    postDiv.classList.add("post");
 
-    let postTags = document.createElement("p")
-    postTags.classList.add("post-tags")
+    let postHeader = document.createElement("header");
+    postHeader.classList.add("post-header");
 
-    postTags.innerText = "Tags: "
+    let authorLink = document.createElement("a");
+    authorLink.href = "#";
+    authorLink.classList.add("post-author");
+    authorLink.innerText = fetchUserById(post.userId).username;
+    authorLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        showUserDetails(post.userId);
+    });
 
-    let tagsSpan = document.createElement("span")
-    tagsSpan.classList.add("tags")
+    let authorImg = document.createElement("img");
+    authorImg.src = fetchImgById(post.userId);
+    authorImg.alt = fetchUserById(post.userId).username;
 
-    let postReactionCount = document.createElement("p")
-    postReactionCount.classList.add("post-reactionCount")
+    let postTitle = document.createElement("h3");
+    postTitle.classList.add("post-title");
+    postTitle.innerText = post.title;
 
-    postReactionCount.innerText = "Reaction Count: "
+    let postBody = document.createElement("p");
+    postBody.classList.add("post-body");
+    postBody.innerText = post.body;
 
-    let reactionCountSpan = document.createElement("span")
-    reactionCountSpan.classList.add("reactionCount")
+    let postUserId = document.createElement("p");
+    postUserId.classList.add("post-userId");
+    postUserId.innerText = "User ID: ";
+    let userIdSpan = document.createElement("span");
+    userIdSpan.classList.add("userId");
+    userIdSpan.innerText = post.userId;
+    postUserId.appendChild(userIdSpan);
 
-    let postIdEl = document.createElement("p")
-    postIdEl.classList.add("post-postId")
+    let postTags = document.createElement("p");
+    postTags.classList.add("post-tags");
+    postTags.innerText = "Tags: ";
+    let tagsSpan = document.createElement("span");
+    tagsSpan.classList.add("tags");
+    tagsSpan.innerText = post.tags;
+    postTags.appendChild(tagsSpan);
 
-    postIdEl.innerText = "Post ID: "
+    let postReactionCount = document.createElement("p");
+    postReactionCount.classList.add("post-reactionCount");
+    postReactionCount.innerText = "Reaction Count: ";
+    let reactionCountSpan = document.createElement("span");
+    reactionCountSpan.classList.add("reactionCount");
+    reactionCountSpan.innerText = post.reactions;
+    postReactionCount.appendChild(reactionCountSpan);
 
-    let postIdSpan = document.createElement("span")
-    postIdSpan.classList.add("postId")
+    let postPostId = document.createElement("p");
+    postPostId.classList.add("post-postId");
+    postPostId.innerText = "Post ID: ";
+    let postIdSpan = document.createElement("span");
+    postIdSpan.classList.add("postId");
+    postIdSpan.innerText = post.id;
+    postPostId.appendChild(postIdSpan);
 
+    let commentsDiv = document.createElement("div");
+    commentsDiv.classList.add("comments");
 
-    let comments = document.createElement("div")
-    comments.classList.add("comments")
-
-    author.innerText = username
-    postTitle.innerText = title
-    postBody.innerText = body
-    userIdSpan.innerText = userId
-    tagsSpan.innerText = tags
-    reactionCountSpan.innerText = reactionCount
-    postIdSpan.innerText = postId
-
-    postUserId.appendChild(userIdSpan)
-    postTags.appendChild(tagsSpan)
-    postReactionCount.appendChild(reactionCountSpan)
-    postIdEl.appendChild(postIdSpan)
-    
-    header.appendChild(author)
-    header.appendChild(imgElement)
-    post.appendChild(header)
-    post.appendChild(postTitle)
-    post.appendChild(postBody)
-    post.appendChild(postUserId)
-    post.appendChild(postTags)
-    post.appendChild(postReactionCount)
-    post.appendChild(postIdEl)
-    post.appendChild(comments)
+    postHeader.appendChild(authorLink);
+    postHeader.appendChild(authorImg);
+    postDiv.appendChild(postHeader);
+    postDiv.appendChild(postTitle);
+    postDiv.appendChild(postBody);
+    postDiv.appendChild(postUserId);
+    postDiv.appendChild(postTags);
+    postDiv.appendChild(postReactionCount);
+    postDiv.appendChild(postPostId);
+    postDiv.appendChild(commentsDiv);
 
     // Fetch comments for this post
-    let postComments = await fetchCommentsForPost(postId);
-    // Append comments to the post
+    let postComments = fetchCommentsForPost(post.id);
     postComments.forEach(comment => {
-        let commentElement = document.createElement("p");
-        commentElement.classList.add("comment");
-        commentElement.innerText = comment.body;
-        comments.appendChild(commentElement);
+        let commentElement = createCommentElement(comment);
+        commentsDiv.appendChild(commentElement);
     });
 
-    container.appendChild(post)
+    return postDiv;
 }
 
-async function displayPosts(){
-    const posts = await Posts()
-    const users = await Users()
-    const comments = await Comments()
-
-    let username = null
-    let img = null
-    let title = null
-    let body = null
-    let userId = null
-    let tags = null
-    let reactionCount = null
-    let postId = null
+// Function to render posts
+async function renderPosts() {
+    await fetchAllData();
 
     posts.forEach(post => {
-        postId = post.id
-        title = post.title
-        body = post.body
-        userId = post.userId
-        tags = post.tags
-        reactionCount = post.reactions
-
-        users.forEach(user => {
-            if(user.id === userId){
-                img = user.image
-            }
-
-            comments.forEach(comment => {
-                if(comment.user.id === postId){
-                    username = comment.user.username
-                }
-            });
-        });
-        createPostElement(username, img, title, body, userId, tags, reactionCount, postId)
-    
+        let postElement = createPostElement(post);
+        container.appendChild(postElement);
     });
 }
 
-displayPosts()
+// Function to display user details
+function showUserDetails(userId) {
+    let user = fetchUserById(userId);
+    console.log("User ID: ", user);
+}
 
-
+renderPosts();
