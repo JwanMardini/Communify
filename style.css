@@ -164,6 +164,13 @@ nav ul li a:hover::after{
 
 
 /* Posts */
+#posts-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between  ;
+    align-items: center;
+    padding-top: 80px;
+}
 .posts-header{
     margin-bottom: 20px;
     margin-top: 20px;
@@ -194,11 +201,15 @@ nav ul li a:hover::after{
     border-radius: 50%;
 }
 
-.post-title {
+.post-author {
     font-size: 24px;
     margin-bottom: 10px;
     margin-top: 7px;
     color: #CCC8AA;
+}
+
+.post-title {
+    padding: 10px;
 }
 
 .post-body {
