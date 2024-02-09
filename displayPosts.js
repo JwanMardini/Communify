@@ -102,7 +102,9 @@ function fetchImgById(userId){
 
 */}
 
-const container = document.querySelector(".main-posts")
+
+const container = document.createDocumentFragment();
+const mainPosts = document.querySelector(".main-posts")
 
 // Function to create a comment element
 function createCommentElement(comment) {
@@ -116,9 +118,13 @@ function createCommentElement(comment) {
     commentImg.src = fetchImgById(comment.user.id);
     commentImg.alt = "User Image";
 
-    let commentUsername = document.createElement("h4");
+    let commentUsername = document.createElement("a");
+    commentUsername.href = "#";
     commentUsername.classList.add("comment-username");
     commentUsername.innerText = comment.user.username;
+    commentUsername.addEventListener("click", (event) => {
+        showUserDetails(event, comment.user.id);
+    });
 
     let commentBody = document.createElement("p");
     commentBody.classList.add("comment-body");
@@ -145,10 +151,9 @@ function createPostElement(post) {
     authorLink.classList.add("post-author");
     authorLink.innerText = fetchUserById(post.userId).username;
     authorLink.addEventListener("click", (event) => {
-        event.preventDefault();
-        showUserDetails(post.userId);
+        showUserDetails(event, post.userId);
     });
-
+    
     let authorImg = document.createElement("img");
     authorImg.src = fetchImgById(post.userId);
     authorImg.alt = fetchUserById(post.userId).username;
@@ -225,12 +230,37 @@ async function renderPosts() {
         let postElement = createPostElement(post);
         container.appendChild(postElement);
     });
+
+    mainPosts.appendChild(container);
 }
 
-// Function to display user details
-function showUserDetails(userId) {
+// // Function to display user details
+function showUserDetails(event, userId) {
+    event.preventDefault();
     let user = fetchUserById(userId);
-    console.log("User ID: ", user);
+    let userDetailsDiv = document.getElementById("user-details");
+
+    userDetailsDiv.style.top = `${event.clientY}px`;
+    userDetailsDiv.style.left = `${event.clientX}px`;
+
+    userDetailsDiv.innerHTML = `
+        <button id="close-btn">Close</button>
+        <h3>Username : ${user.username}</h3>
+        <p>First Name: ${user.firstName}</p>
+        <p>Last Name: ${user.lastName}</p>
+        <p>Age: ${user.age}</p>
+    `;
+    userDetailsDiv.style.display = "block";
+
+    let closeBtn = document.getElementById("close-btn");
+    closeBtn.addEventListener("click", () => {
+        userDetailsDiv.style.display = "none";
+    });
+
+       // Close user details on scroll
+    window.addEventListener("scroll", () => {
+        userDetailsDiv.style.display = "none";
+    });
 }
 
-renderPosts();
+document.addEventListener("DOMContentLoaded", renderPosts);

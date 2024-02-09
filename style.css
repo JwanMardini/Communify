@@ -180,7 +180,7 @@ nav ul li a:hover::after{
     background-color: #fff;
     border-radius: 5px;
     margin-bottom: 20px;
-    height: autoo;
+    height: auto;
     width: 500px;
 }
 
@@ -206,6 +206,7 @@ nav ul li a:hover::after{
     margin-bottom: 10px;
     margin-top: 7px;
     color: #CCC8AA;
+    text-decoration: none;
 }
 
 .post-title {
@@ -247,6 +248,11 @@ nav ul li a:hover::after{
 
 .comment-username{
     margin-top: 3px;
+    color: #CCC8AA;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+
 }
 
 
@@ -262,12 +268,72 @@ nav ul li a:hover::after{
     color: #fff;
 }
 
+#user-details{
+    position: fixed;
+    background-color: #191717;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: #CCC8AA;
+    font-size: 12px;
+    width: 200px;
+    height: auto;
+    text-align: center;
+    z-index: 1;
+    display: none;
+}
+
 footer {
     color: #191717;
     text-align: right;
     padding: 20px;
     width: auto;
     font-size: small;
+}
+
+/* Contact */   
+
+
+.contact-header{
+    margin-top: 80px; ;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #191717;
+}
+
+.contact-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between ;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.contact-form label{
+    font-size: 20px;
+    font-weight: bold;
+    color: #191717;
+}
+
+.contact-form input{
+    width: 300px;
+    height: 30px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.contact-form textarea{
+    width: 300px;
+    height: 100px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
 }
 
 
