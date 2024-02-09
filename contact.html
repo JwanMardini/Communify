@@ -23,14 +23,24 @@
     </nav>
     <div class="container">
         <h2 class="contact-header">Conatct Communify</h2>
-        <form class="contact-form" action="" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            <input type="submit" value="Submit">
+        <form id="contact-form" class="contact-form" action="" method="">
+            <label for="name">Name:
+                <input type="text" id="name" name="name" required>
+            </label>
+
+            <label for="email">Email:
+                <input type="email" id="email" name="email" required>
+            </label>    
+
+            <label id="message-label" for="message">Message: 
+                <textarea id="message" name="message" required></textarea>
+            </label>
+            
+
+            <!-- <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree">I agree to the terms and conditions</label> -->
+
+            <button id="submit" type="submit" class="submit-button">Submit</button>
         </form>
     </div>
 
@@ -38,6 +48,8 @@
     <footer>
         <p>&copy; 2024 Communify. All rights reserved.</p>
     </footer>  
+
+    <script src="./formValditaion.js"></script>
     
 </body>
 </html>
