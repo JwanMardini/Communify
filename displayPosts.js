@@ -83,7 +83,7 @@ function showUserDetails(event, userId) {
     userDetailsDiv.style.left = `${event.clientX}px`;
 
     userDetailsDiv.innerHTML = `
-        <button id="close-btn">Close</button>
+        <button id="close-btn">X</button>
         <h3>Username : ${user.username}</h3>
         <p>First Name: ${user.firstName}</p>
         <p>Last Name: ${user.lastName}</p>
@@ -219,7 +219,6 @@ function createPostElement(post) {
     return postDiv;
 }
 
-
 // Function to fetch posts per page
 async function fetchPostsPerPage(page) {
     try {
@@ -271,7 +270,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await renderPosts();
     setupInfiniteScroll();
 });
-
 
 
 // how post should look like

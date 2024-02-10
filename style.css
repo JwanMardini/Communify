@@ -24,7 +24,7 @@ nav{
 
 .navbar-logo{
     width: 100px;
-    height: 60px;
+    height: 70px;
     margin-left: 30px;
 }
 
@@ -42,6 +42,7 @@ nav ul li a{
     transition: .4s;
     position: relative;
 }
+
 
 nav ul li a::after{
     content: '';
@@ -73,50 +74,53 @@ nav ul li a:hover::after{
 /* Home */
 .main-home{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding-top: 80px;
     align-items: center;
     width: 100%;
-
 }
 
 .landingPageText{
     text-align: left;
     margin-left: 50px;
+    margin-top: 50px;
+    width: 50%;
 }
 
 .landingPageText h1 {
-    text-align: left;
     color: #191717;
-    font-size: 60px;
+    font-size: 4em;
     font-weight: bold;
 }
 
 .landingPageUnderText{
     color: #191717;
-    font-size: 15px;
+    font-size: 1.5em;
     font-style: italic;
+    margin-top: 20px;
 }
 
 
 .main-home p {
     color: #191717;
-    font-size: 10px;
+    font-size: 1em;
     text-align: left;
-    margin-top: 130px;
+    margin-top: 10%;
     font-weight: bold;
 }
 
 .landingPageImage{
     height: auto;
     margin-top: 70px;
+    margin-left: 50px;
+    margin-bottom: 40px;
 }
 
 .landingPageImage img{
     object-fit: contain;
     max-height: 450px;
     max-width: 450px;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 /* About */
@@ -129,7 +133,7 @@ nav ul li a:hover::after{
     margin-bottom: 40px;
     background-color: #191717;
     border-radius: 10px;
-    max-height: 400px;
+    width: 80%;
 }
 
 .about-section-textBox{
@@ -140,16 +144,18 @@ nav ul li a:hover::after{
 .about-section-textBox h2{
     text-align: left;
     color: #CCC8AA;
-    font-size: 40px;
+    font-size: 3em;
     font-weight: bold;
 }
 
 .about-section-textBox p {
     color: #CCC8AA;
-    font-size: 10px;
+    font-size: 1em;
     text-align: left;
     font-weight: bold;
+    margin-top: 20px;
     max-width: 400px;
+
 }
 
 .about-section-imageBox{
@@ -160,6 +166,9 @@ nav ul li a:hover::after{
 .about-section-imageBox img{
     object-fit: contain;
     max-height: 350px;
+    max-width: 350px;
+    margin-left: 30px;
+    margin-bottom: 30px;
 }
 
 
@@ -181,7 +190,7 @@ nav ul li a:hover::after{
     border-radius: 5px;
     margin-bottom: 20px;
     height: auto;
-    width: 500px;
+    width: 600px;
 }
 
 .post-header {
@@ -237,6 +246,8 @@ nav ul li a:hover::after{
     color: #CCC8AA;
 }
 
+/* Comments */
+
 .comment{
     display: flex;
     flex-direction: column;
@@ -254,7 +265,7 @@ nav ul li a:hover::after{
     margin-top: 3px;
     color: #CCC8AA;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 1em;
     text-decoration: none;
 
 }
@@ -288,6 +299,16 @@ nav ul li a:hover::after{
     display: none;
 }
 
+#close-btn{
+    border: 1px solid #CCC8AA;
+    background-color: #191717;
+    color: #CCC8AA;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 1px;
+}
+
 footer {
     color: #191717;
     text-align: right;
@@ -296,9 +317,7 @@ footer {
     font-size: small;
 }
 
-/* Contact */   
-
-
+/* Contact */
 .contact-header{
     margin-top: 80px; ;
     margin-bottom: 20px;
@@ -331,13 +350,13 @@ footer {
     padding: 10px;
 }
 
-
-#message{
+textarea{
     width: 300px;
     height: 100px;
     border-radius: 5px;
     border: none;
     padding: 10px;
+    margin-right: 30px;
 }
 
 
@@ -346,14 +365,18 @@ footer {
     height: 40px;
     border-radius: 5px;
     border: none;
-    background-color: #848063;
-    color: #191717;
+    background-color: #191717;
+    color: #CCC8AA;
     font-weight: bold;
     font-size: 16px;
     transition: .4s;
     margin-bottom: 20px;
     margin-top: 30px;
-    
+}
+
+.submit-button:active{
+    background-color: #9a9785;
+    color: #191717;
 }
 
 .clickable{
@@ -382,6 +405,7 @@ footer {
     .landingPageText{
         order: 2;
         margin-left: 10%;
+        width: 80%;
     }
 
 
