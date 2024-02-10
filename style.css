@@ -224,6 +224,10 @@ nav ul li a:hover::after{
     padding: 10px;
 }
 
+.post-author-img{
+    transform: scaleX(-1);
+}
+
 .comments {
     border: 1px solid #191717;
     border-radius: 5px;

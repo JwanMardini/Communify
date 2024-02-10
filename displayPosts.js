@@ -1,6 +1,13 @@
 let users = [];
 let posts = [];
 let comments = [];
+let finalPosts = [];
+
+let currentPage = 1;
+const itemsPerPage = 5; // Number of items to show per page
+
+const container = document.createDocumentFragment();
+const mainPosts = document.querySelector(".main-posts");
 
 async function fetchUsers() {
     try {
@@ -52,14 +59,6 @@ async function fetchAllData() {
 }
 
 
-// async function displayData() {
-//     await fetchAllData();
-//     console.log(users);
-//     console.log(posts);
-//     console.log(comments);
-// }
-
-
 function fetchCommentsForPost(postId){
     let commentsForPost = comments.filter(comment => comment.postId === postId)
     return commentsForPost
@@ -75,36 +74,33 @@ function fetchImgById(userId){
     return user.image
 }
 
-// how post should look like
-{/*
-<div class="post">
-    <header class="post-header">
-        <a href="#" id="userId" class="post-author">username</a>
-        <img src="img" alt="post title">
-    </header>
-    <h3 class="post-title">post title</h3>
-    <p class="post-body">post body</p>
-    <p class="post-userId">User ID: <span class="userId">userId</span></p>
-    <p class="post-tags">Tags: <span class="tags">tags</span></p>
-    <p class="post-reactionCount">Reaction Count: <span class="reactionCount">reactionCount</span></p>
-    <p class="post-postId">Post ID: <span class="postId">postId</span></p>
-    <div class="comments">
-        <!-- Comments will be appended here dynamically -->
-        <div class="comment">
-            <header class="comment-header">
-                <img src="https://placehold.co/30x30" alt="">
-                <h4 class="comment-username">username</h4>
-            </header>
-            <p class="comment-body">This is some awesome thinking!</p>
-        </div>
-    </div>
-</div>
+function showUserDetails(event, userId) {
+    event.preventDefault();
+    let user = fetchUserById(userId);
+    let userDetailsDiv = document.getElementById("user-details");
 
-*/}
+    userDetailsDiv.style.top = `${event.clientY}px`;
+    userDetailsDiv.style.left = `${event.clientX}px`;
 
+    userDetailsDiv.innerHTML = `
+        <button id="close-btn">Close</button>
+        <h3>Username : ${user.username}</h3>
+        <p>First Name: ${user.firstName}</p>
+        <p>Last Name: ${user.lastName}</p>
+        <p>Age: ${user.age}</p>
+    `;
+    userDetailsDiv.style.display = "block";
 
-const container = document.createDocumentFragment();
-const mainPosts = document.querySelector(".main-posts")
+    let closeBtn = document.getElementById("close-btn");
+    closeBtn.addEventListener("click", () => {
+        userDetailsDiv.style.display = "none";
+    });
+
+       // Close user details on scroll
+    window.addEventListener("scroll", () => {
+        userDetailsDiv.style.display = "none";
+    });
+}
 
 // Function to create a comment element
 function createCommentElement(comment) {
@@ -155,6 +151,7 @@ function createPostElement(post) {
     });
     
     let authorImg = document.createElement("img");
+    authorImg.classList.add("post-author-img");
     authorImg.src = fetchImgById(post.userId);
     authorImg.alt = fetchUserById(post.userId).username;
 
@@ -222,45 +219,84 @@ function createPostElement(post) {
     return postDiv;
 }
 
-// Function to render posts
-async function renderPosts() {
-    await fetchAllData();
 
-    posts.forEach(post => {
-        let postElement = createPostElement(post);
-        container.appendChild(postElement);
+// Function to fetch posts per page
+async function fetchPostsPerPage(page) {
+    try {
+        let start = (page - 1) * itemsPerPage;
+        let end = start + itemsPerPage;
+        let postsPerPage = finalPosts.slice(start, end);
+        return postsPerPage;
+    } catch (error) {
+        console.error('Error fetching posts per page:', error.message);
+    }
+}
+
+// Function to render posts
+async function renderPosts(page) {
+    if (!page) page = currentPage;
+    let postsPerPage = await fetchPostsPerPage(page);
+
+    postsPerPage.forEach(post => {
+        container.appendChild(post);
     });
 
     mainPosts.appendChild(container);
 }
 
-// // Function to display user details
-function showUserDetails(event, userId) {
-    event.preventDefault();
-    let user = fetchUserById(userId);
-    let userDetailsDiv = document.getElementById("user-details");
+// Function to setup infinite scroll
+function setupInfiniteScroll() {
+    let timeout;
+    let buffer = 200;
 
-    userDetailsDiv.style.top = `${event.clientY}px`;
-    userDetailsDiv.style.left = `${event.clientX}px`;
+    window.onscroll = () => {
+        clearTimeout(timeout);
 
-    userDetailsDiv.innerHTML = `
-        <button id="close-btn">Close</button>
-        <h3>Username : ${user.username}</h3>
-        <p>First Name: ${user.firstName}</p>
-        <p>Last Name: ${user.lastName}</p>
-        <p>Age: ${user.age}</p>
-    `;
-    userDetailsDiv.style.display = "block";
+        timeout = setTimeout(async () => {
+            let scrollPosition = window.innerHeight + window.scrollY;
+            let adjustedOffsetHeight = Math.max(document.body.offsetHeight, buffer);
 
-    let closeBtn = document.getElementById("close-btn");
-    closeBtn.addEventListener("click", () => {
-        userDetailsDiv.style.display = "none";
-    });
-
-       // Close user details on scroll
-    window.addEventListener("scroll", () => {
-        userDetailsDiv.style.display = "none";
-    });
+            if (scrollPosition >= adjustedOffsetHeight - buffer) {
+                currentPage++;
+                await renderPosts(currentPage);
+            }
+        }, 300);
+    };
 }
 
-document.addEventListener("DOMContentLoaded", renderPosts);
+// Start the app
+document.addEventListener("DOMContentLoaded", async () => {
+    await fetchAllData();
+    finalPosts = posts.map(createPostElement); // Populate finalPosts array with post elements
+    await renderPosts();
+    setupInfiniteScroll();
+});
+
+
+
+// how post should look like
+{/*
+<div class="post">
+    <header class="post-header">
+        <a href="#" id="userId" class="post-author">username</a>
+        <img src="img" alt="post title">
+    </header>
+    <h3 class="post-title">post title</h3>
+    <p class="post-body">post body</p>
+    <p class="post-userId">User ID: <span class="userId">userId</span></p>
+    <p class="post-tags">Tags: <span class="tags">tags</span></p>
+    <p class="post-reactionCount">Reaction Count: <span class="reactionCount">reactionCount</span></p>
+    <p class="post-postId">Post ID: <span class="postId">postId</span></p>
+    <div class="comments">
+        <!-- Comments will be appended here dynamically -->
+        <div class="comment">
+            <header class="comment-header">
+                <img src="https://placehold.co/30x30" alt="">
+                <h4 class="comment-username">username</h4>
+            </header>
+            <p class="comment-body">This is some awesome thinking!</p>
+        </div>
+    </div>
+</div>
+
+*/}
